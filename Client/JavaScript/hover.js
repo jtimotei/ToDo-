@@ -1,16 +1,31 @@
 // Menu
+
+var iconsLeft = document.querySelectorAll("#categories li");
+var slideMenuShown = false;
+
 $("#MenuIcon").on("click", function(){
-	$element= $("#menuDiv");
-	if($element.css("display") == "none"){
-		$element.css("display","block");
+	$element= $("#menu");
+
+	if(!slideMenuShown){
+		$("#shadow").fadeIn(200);
+		$element.animate({"right": "0%"},250, function() {
+			slideMenuShown = true;
+		});
+		
 	}
-	else if($element.css("display") == "block"){
-		$element.css("display","none");
+	else{
+		$element.animate({"right": "-25%"},250, function() {
+			slideMenuShown = false;
+		});
+		$("#shadow").fadeOut(200);
 	}
 });
 
 $("#shadow").on("click", function(){
-	$("#menuDiv").css("display","none");
+	$element.animate({"right": "-25%"},250, function() {
+		slideMenuShown = false;
+	});
+	$("#shadow").fadeOut(100);
 });
 
 $(document).on("keyup", function(event){
@@ -39,7 +54,7 @@ function iconRemoveHover(a){
 }
 
 
-var iconsLeft = document.querySelectorAll("#categories li");
+/*
 
 $(iconsLeft[0]).mouseenter(function() {
 	iconsLeft[0].childNodes[1].src = iconAddHover(iconsLeft[0].childNodes[1].src);
@@ -59,3 +74,4 @@ $(iconsLeft[2]).mouseenter(function() {
 $(iconsLeft[2]).mouseleave(function() {
 	iconsLeft[2].childNodes[1].src = iconRemoveHover(iconsLeft[2].childNodes[1].src);
 });
+*/

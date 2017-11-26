@@ -111,8 +111,16 @@ main p{
 	text-shadow: 2px 2px black;
 }
 
+main p#moto {
+	font-size:4vmin;
+	color:black;
+	text-shadow: none;
+	margin-top: 3%;
+	font-family: "Ubuntu";
+}
+
 main div#enroll{
-	margin-top:5%;
+	margin-top:2%;
 	padding: 10px 15px 10px 15px;
 	border-radius: 4px;
 	background-color: rgba(0,0,0,0);

@@ -80,26 +80,25 @@ header div a:hover{
 
 
 /* MAIN */
-main #menuDiv{
+
+div#shadow{
 	position: fixed;
 	top:5%;
 	z-index: 5;
-	display:none;
 	height: 95%;
 	width: 100%;
-}
-
-#menuDiv #shadow{
-	height:100%;
-	width: 75%;
 	float:left;
 	background-color: rgba(0,0,0,0.5);
+	display: none;
 }
 
-#menuDiv #menu{
-	height:100%;
+div#menu{
+	z-index: 6;
+	position: fixed;
+	top:5%;
+	height: 95%;
 	width: 25%;
-	float:right;
+	right:-25%;
 	background-color: white;
 }
 
@@ -109,7 +108,6 @@ main #menuDiv{
 	top:10%;
 	margin:auto;	
 	border-spacing: 0px 50px;
-
 }
 
 #menuContent tr td{
@@ -139,24 +137,24 @@ div#left ul{
 	font-size: 1.5em;
 	margin:auto;
 	overflow: hidden;
-	
-	
-
 }
 
 div#left ul li{
-	
 	list-style-type: none;
 	margin-bottom:20px;
 	display: inline-block;
 	width: 100%;
 	height: 74px;
-
+	font-family: "Ubuntu";
+	border-left: 0px solid rgba(0,0,0,0);
+	transition:0.5s;
 }
 
 div#left ul li:hover{
-	color:#0033cc;
+	border-left: 10px solid rgb(0, 51, 102);
+	color:rgb(0, 51, 102);
 	cursor:pointer;
+	transition: 0.5s;
 }
 
 div#left ul li div{
@@ -196,18 +194,13 @@ div#tabs {
 	left:25%;
 	width:75%;
 	background-color: #e8e8e8;
-	
-	
-
+	font-family: "Ubuntu";
 }
 
 div#tabs ul{
 	height: 100%;
 	width:100%;
-	overflow: hidden;
-
-	
-	
+	overflow: hidden;	
 }
 
 div#tabs ul li{
@@ -240,7 +233,7 @@ li .container{
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%) 
+    transform: translate(-50%, -50%);
 }
 
 #mainPageContainer{
@@ -261,7 +254,7 @@ li .container{
 	top:20px;
 	width:90%;
 	margin:auto;
-
+	font-family: "Fredoka One";
 }
 
 #todoList p{

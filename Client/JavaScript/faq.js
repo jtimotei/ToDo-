@@ -15,8 +15,7 @@ function main(){
 
 function showLogIn() {
 	if(!logInShown) {
-		setPosition();
-		$("#triangle").fadeIn(50);
+		if(setPosition() != -1) $("#triangle").fadeIn(50);
 		$("#logInWindow").fadeIn(50);
 		logInShown = true;
 	}
@@ -34,7 +33,10 @@ function setPosition() {
 	var triangle = document.getElementById("triangle");
 	var rectLogin = logInButton.getBoundingClientRect();
 	var rectTriangle = triangle.getBoundingClientRect();
-	var left = rectLogin.x + rectLogin.width/2 - rectTriangle.width/2;
+	var left;
+	if(rectLogin.x != undefined) left = rectLogin.x + rectLogin.width/2 - rectTriangle.width/2;
+	else if(rectLogin.left != undefined) left = rectLogin.left + rectLogin.width/2 - rectTriangle.width/2;
+	else return -1;
 	$("#triangle").css({"left":left});
 }
 
