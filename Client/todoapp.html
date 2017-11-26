@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ToDo++</title>
+	<link rel="stylesheet" type="text/css" href="CSS/todoapp.css">
+	<link rel="icon" href="Resources/favicon.ico" type="image/x-icon" />
+</head>
+<script> 
+
+</script>
+<body>
+<header>
+	<a href="index.html"> <img id="logo" src="Resources/logo.png"> </a>
+	<div><img id="MenuIcon" src="Resources/MenuIcon.png"><p style="margin-left:8px; margin-right: 5px;"> | </p> <a href="faq.html"> FAQ </a></div>
+
+</header>
+<main>
+	<div id="menuDiv">
+		<div id="menu">
+			<table id="menuContent">
+				<tr><td><img src="Resources/UserIcon.svg"><span style="font-size: 2em; margin:0px;">John Doe</span></td></tr>
+				<tr><td>Log out</td></tr>
+				<tr><td>Settings</td></tr>
+			</table>
+		</div>
+		<div id="shadow"></div>
+	</div>
+	<div id="left">
+		<ul id="categories">
+			<li class="active"> <img class="iconsLeft" src="Resources/inbox.png"> <div> <p> Inbox </p> </div> </li>
+			<li> <img class="iconsLeft" src="Resources/today.png"> <div> <p> Today </p> </div> </li>
+			<li> <img class="iconsLeft" src="Resources/calendar.png"> <div> <p> Next 7 days </p> </div> </li>
+			
+		</ul>
+	</div>
+	<div id="right">
+
+		<div id="tabs">
+			<ul>
+				<li><div class="container"> All </div></li>
+				<li  class="active"><div class="container">  Study </div></li>
+				<li><div class="container">  Personal </div></li>
+				<li  id="plus"><div class="container">  + </div></li>
+				
+			</ul>
+		</div>
+		
+		<div id="mainPageContainer">
+		<div id="content">
+			<h1> Hi John, </h1>
+			<br>
+			<h3> You plan on: </h3>
+			<ul id="todoList">
+				
+			</ul>
+			<forms id="addTodo" method="get" action="/addtodo">
+        		<input name="text" type="text">
+        		<input name="date" type="date">
+       	 		<button type="submit" name="button">Add</button>
+    		</forms>
+
+			</div>
+		</div>
+		
+	</div>
+</main>
+
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>	
+<script src="JavaScript/hover.js"></script>
+<script src="JavaScript/todoapp.js"></script>
+</body>
+</html>

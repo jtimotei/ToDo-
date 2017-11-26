@@ -1,0 +1,32 @@
+/* MAIN */
+
+main #contentFAQ{
+	position: relative;
+	top:15%;
+	margin:auto;
+	width:80%;
+	background-color: #c0c0c0;
+	padding:30px;
+	min-height:300px;
+	border-radius: 5px;
+}
+
+h2 {
+	font-family: "Fredoka One";
+	color:grey;
+}
+
+p.question {
+	font-family: "Fredoka One";
+	font-size:1.8em;
+	color:black;
+	text-shadow: none;
+}
+
+p.answer {
+	font-style: italic;
+	font-family: "Fredoka One";
+	font-size:1.8em;
+	color:black;
+	text-shadow: none;
+}
