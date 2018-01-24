@@ -20,7 +20,22 @@ function main(){
 	});
 
 	$("div#login").on("click", function() {
-		location.href = "todoapp.html";
+		var loginInfo = {
+			username : $("input[name='username']").val(),
+			password : $("input[name='password']").val()
+		}
+		$.ajax({
+			type: "POST",
+			url:"/ToDo-/Client/login.php", 
+			data:loginInfo,
+			dataType:"json",
+			complete : function(xhr) {
+				if(xhr.responseText == "Success") {
+					window.location.href = "todoapp.php";
+				}
+			}
+
+		})
 	})
 }
 
@@ -28,7 +43,7 @@ function showSymbolAnim() {
 	if(index>=0 && index<6) {
 		$(idsAnim[index]).fadeIn(10);
 		index++;
-		setTimeout(function() {showSymbolAnim();}, 200);
+		setTimeout(function() {showSymbolAnim();}, 200 - Math.random()*100);
 	}
 	else {
 		$("span.cursor").removeAttr("id");

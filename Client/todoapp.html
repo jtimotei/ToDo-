@@ -31,34 +31,26 @@
 			<li> <img class="iconsLeft" src="Resources/calendar.png"> <div> <p> Next 7 days </p> </div> </li>
 			
 		</ul>
+		<div id="copyright">&#169; 2018 jtimotei</div>
 	</div>
 	<div id="right">
-
-		<div id="tabs">
-			<ul>
-				<li><div class="container"> All </div></li>
-				<li  class="active"><div class="container">  Study </div></li>
-				<li><div class="container">  Personal </div></li>
-				<li  id="plus"><div class="container">  + </div></li>
-				
-			</ul>
-		</div>
 		
 		<div id="mainPageContainer">
 		<div id="content">
 			<h1> Hi John, </h1>
 			<br>
-			<h3> You plan on: </h3>
-			<ul id="todoList">
-				
-			</ul>
-			<forms id="addTodo" method="get" action="/addtodo">
-        		<input name="text" type="text">
-        		<input name="date" type="date">
-       	 		<button type="submit" name="button">Add</button>
-    		</forms>
+			<h3 id="subtitle"> You don't have any saved plans. </h3>
+			<div id="todoList">
 
 			</div>
+
+			</div>
+		<div id="addTodoDiv"> <forms id="addTodo" method="get" action="/addtodo">
+			<input name="text" maxlength="30" type="text" placeholder="Add another todo">
+			<input name="date" type="date">
+			<button>+</button>
+		</forms>
+		</div>
 		</div>
 		
 	</div>

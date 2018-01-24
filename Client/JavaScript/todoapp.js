@@ -4,6 +4,7 @@ var main=function(){
 	var studyTodos=[];
 	var $element;
 	var filteringMode = 0;
+	var iconsLeft = document.querySelectorAll("#categories li");
 
 	function checkTodos(todos){
 		var changed = false;
@@ -34,6 +35,7 @@ var main=function(){
 		$(iconsLeft).removeClass("active");
 		$(iconsLeft[filteringMode]).addClass("active");
 	};
+
 	$(iconsLeft[0]).on("click", function(){ 
 		filteringMode = 0;
 		makeModeActive(0);
@@ -72,64 +74,16 @@ var main=function(){
 	function Todo(text, date, prioritized, done){
 		this.text = text;
 		this.date = date;
-		this.prioritized = prioritized;
-		this.done = done;
 	}
 
-	var njstupid = function(index, todo){
-		this.index = index;
-		this.todo = todo;
-	}
 	
 	window.removeTodo = function(index){
 
 		studyTodos.splice(index,1);
-		var obj = new njstupid(index,undefined);
 		
-		$.post('remove', obj);		
+		//$.post('remove', obj);		
 		printTodos(filteringMode);
 		
-	}
-
-
-	window.crossText = function(index, index2){
-
-		var todoList = document.getElementById("todoList");
-		$(todoList.childNodes[index]).css("text-decoration","line-through");
-
-		if(index2 != undefined) {
-			studyTodos[index2].done = 'yes';
-			var obj= new njstupid(index2, studyTodos[index2]);
-			$.post('update', obj);	
-
-		}
-		else{
-			studyTodos[index].done = 'yes';
-			var obj= new njstupid(index, studyTodos[index]);
-			$.post('update', obj);	
-		}
-
-
-
-
-	}
-
-	window.makeRed = function(index, index2){
-
-		var todoList = document.getElementById("todoList");
-		$(todoList.childNodes[index]).css("color","red");
-		if(index2 != undefined) {
-			studyTodos[index2].prioritized = 'yes';
-			var obj= new njstupid(index2, studyTodos[index2]);
-			$.post('update', obj);	
-
-		}
-		else{
-			studyTodos[index].prioritized = 'yes';
-			var obj= new njstupid(index, studyTodos[index]);
-			$.post('update', obj);	
-		}
-
 	}
 
 
@@ -163,123 +117,72 @@ var main=function(){
 		return today;
 	}
 
+	function createTodoDiv(overdue, text, date, index) {
+		var $outer_div = $("<div>");
+		var $new_todo = $("<div>").text(overdue + text+" | Due date: " + date);
+		var $remove = $("<img src='Resources/cross.png' id='cross'>");
+		$outer_div.append($new_todo);
+		$outer_div.append($remove);
+		$remove.on("click", function() {
+			removeTodo(index);
+		})
+		$outer_div.hide();
+		$("#todoList").append($outer_div);
+		$outer_div.fadeIn(0);
+	}
+
 	function printAllTodos(){
-		var today = getCurrentTime(); 
+		var today = getCurrentTime();
+
+		var anyPlans = false;
 		for(var temp in studyTodos){
+			anyPlans = true;
 			var overdue;
 			if(isLater(today, studyTodos[temp].date)){
 				overdue = "OVERDUE! | ";
 			}
 			else overdue = "";
-			var $new_todo = $("<p>").text(overdue + studyTodos[temp].text+" | Due date: " + studyTodos[temp].date);
-			var $new_button1 = document.createElement("button");
-			$new_button1.innerHTML = "Remove";
-			$new_todo.append($new_button1);
-			$new_button1.setAttribute("onclick","removeTodo("+temp+")");
-			var $new_button2 = document.createElement("button");
-			$new_button2.innerHTML = "Prioritize";
-			$new_todo.append($new_button2);
-			$new_button2.setAttribute("onclick","makeRed("+temp+")");
-			var $checkBox = document.createElement("input");
-			$new_todo.append($checkBox);
-			$checkBox.setAttribute("type","checkBox");
-			$checkBox.setAttribute("onclick", "crossText("+temp+")");
-			$new_todo.hide();
-			$("#todoList").append($new_todo);
-			$new_todo.fadeIn(0);
-
-			if(studyTodos[temp].prioritized == 'yes'){
-				var todoList = document.getElementById("todoList");
-				$(todoList.childNodes[temp]).css("color","red");
-			}
-			if(studyTodos[temp].done == 'yes'){
-				var todoList = document.getElementById("todoList");
-				$(todoList.childNodes[temp]).css("text-decoration","line-through");
-			}
+			createTodoDiv(overdue, studyTodos[temp].text, studyTodos[temp].date, temp);
 
 		}
 		$("#addTodo input").val("");
+
+		if(anyPlans) $("#subtitle").text("You plan on: ");
+		else $("#subtitle").text("You don't have any saved plans.")
 	}
 
 	function printTodayTodos(){
 		var today = getCurrentTime();
-		var temp2=0;
+		var anyPlans = false;
 		for(var temp in studyTodos){
 
 			if(isEqual(studyTodos[temp].date, today)){
-				var $new_todo = $("<p>").text(studyTodos[temp].text+" | Due date: " + studyTodos[temp].date);
-				var $new_button1 = document.createElement("button");
-				$new_button1.innerHTML = "Remove";
-				$new_todo.append($new_button1);
-				$new_button1.setAttribute("onclick","removeTodo("+temp+")");
-				var $new_button2 = document.createElement("button");
-				$new_button2.innerHTML = "Prioritize";
-				$new_todo.append($new_button2);
-				$new_button2.setAttribute("onclick","makeRed("+temp2+","+temp+")");
-				var $checkBox = document.createElement("input");
-				$new_todo.append($checkBox);
-				$checkBox.setAttribute("type","checkBox");
-				$checkBox.setAttribute("onclick", "crossText("+temp2+","+temp+")");
-				$new_todo.hide();
-				$("#todoList").append($new_todo);
-				$new_todo.fadeIn(0);
-
-				if(studyTodos[temp].prioritized == 'yes'){
-					var todoList = document.getElementById("todoList");
-					$(todoList.childNodes[temp2]).css("color","red");
-				}
-				if(studyTodos[temp].done == 'yes'){
-					var todoList = document.getElementById("todoList");
-					$(todoList.childNodes[temp2]).css("text-decoration","line-through");
-				}
-				temp2++;
+				anyPlans = true;
+				createTodoDiv("", studyTodos[temp].text, studyTodos[temp].date);
 			}
 		}
 		$("#addTodo input").val("");
+
+		if(anyPlans) $("#subtitle").text("Your plans for today are:");
+		else $("#subtitle").text("You don't have any plans for today.")
 	}
 
 	function print7Todos(){
 		var currentTime = new Date();
-		var month = currentTime.getMonth() + 1;
-		var day = currentTime.getDate();
-		var year = currentTime.getFullYear();
-		var today = year + "-" + month + "-" + day;
 		currentTime.setDate(currentTime.getDate() + 8);
 		var overOneWeek = currentTime.getFullYear()+'-'+ (currentTime.getMonth()+1) +'-'+currentTime.getDate();
-
-		var temp2=0;
+		
+		var anyPlans = false;
 		for(var temp in studyTodos){
-			if(isLater(studyTodos[temp].date,today) && isLater(overOneWeek, studyTodos[temp].date)){
-				var $new_todo = $("<p>").text(studyTodos[temp].text+" | Due date: " + studyTodos[temp].date);
-				var $new_button1 = document.createElement("button");
-				$new_button1.innerHTML = "Remove";
-				$new_todo.append($new_button1);
-				$new_button1.setAttribute("onclick","removeTodo("+temp+")");
-				var $new_button2 = document.createElement("button");
-				$new_button2.innerHTML = "Prioritize";
-				$new_todo.append($new_button2);
-				$new_button2.setAttribute("onclick","makeRed("+temp2+","+temp+")");
-				var $checkBox = document.createElement("input");
-				$new_todo.append($checkBox);
-				$checkBox.setAttribute("type","checkBox");
-				$checkBox.setAttribute("onclick", "crossText("+temp2+","+temp+")");
-				$new_todo.hide();
-				$("#todoList").append($new_todo);
-
-				$new_todo.fadeIn(0);
-				if(studyTodos[temp].prioritized == 'yes'){
-					var todoList = document.getElementById("todoList");
-					$(todoList.childNodes[temp2]).css("color","red");
-				}
-				if(studyTodos[temp].done == 'yes'){
-					var todoList = document.getElementById("todoList");
-					$(todoList.childNodes[temp2]).css("text-decoration","line-through");
-				}
-				temp2++;
+			if(isLater(studyTodos[temp].date,getCurrentTime()) && isLater(overOneWeek, studyTodos[temp].date)){
+				anyPlans = true;
+				createTodoDiv("", studyTodos[temp].text, studyTodos[temp].date);
 			}
 		}
 		$("#addTodo input").val("");
 
+		if(anyPlans) $("#subtitle").text("Your plans for the next 7 days are:");
+		else $("#subtitle").text("You don't have any plans for the next 7 days.")
 	}
 
 	function printTodos(filteringMode){
