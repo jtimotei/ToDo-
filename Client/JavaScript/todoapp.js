@@ -6,29 +6,22 @@ var main=function(){
 	var filteringMode = 0;
 	var iconsLeft = document.querySelectorAll("#categories li");
 
-	function checkTodos(todos){
-		var changed = false;
-		var todoList	=	document.getElementById('todoList');
-		if(todos != undefined && todos.length != studyTodos.length){
-			changed = true;
-		}
-		else {
-			for(var i in todos){
-				for(var j in todos[i]){
-					
-					if(todos[i][j] != studyTodos[i][j]){
-						changed = true;
-						break;
-					}										
-				}
+	
+	$.ajax({
+		type: "GET",
+		url:"getTodos.php", 
+		complete : function(xhr) {
+			if(xhr.responseText != "No to-dos") {
+				studyTodos = JSON.parse(xhr.responseText);
+				printTodos(filteringMode);
+			}
+			else {
+				$("div#errorMessage").text("Wrong username or password");
 			}
 		}
-		if(changed){
-			studyTodos=[];
-			for(var i=0;i<todos.length;i++) studyTodos[i]=todos[i];
-			printTodos(filteringMode);
-		} 
-	}
+
+	});
+
 
 	// Modes
 	var makeModeActive= function(filteringMode){
@@ -68,20 +61,44 @@ var main=function(){
 		makeTabActive(2);
 	});
 
+	$("div#logOutButton").on("click", function() {
+		$.ajax({
+			type: "GET",
+			url:"logout.php", 
+			complete : function(xhr) {
+				if(xhr.responseText == "Success") {
+					window.location.href = "index.php";
+				}
+			}
+
+		});
+	});
+
 	
 
 	// Todos
-	function Todo(text, date, prioritized, done){
+	function Todo(text, date){
 		this.text = text;
 		this.date = date;
 	}
 
 	
 	window.removeTodo = function(index){
+		var obj = studyTodos[index];
+		obj.op = "remove";		
+		$.ajax({
+			type:"POST",
+			url:'addRemoveTodo.php',
+			dataType:"json",
+			data:obj,
+			complete: function(xhr) {
+				if(xhr.responseText != "Success") {
+					alert("Something went wrong with removing the todo :-(");
 
+				}
+			}
+		});		
 		studyTodos.splice(index,1);
-		
-		//$.post('remove', obj);		
 		printTodos(filteringMode);
 		
 	}
@@ -206,11 +223,21 @@ var main=function(){
 
 	function updateTodos() {
 		var temp = new Todo(document.querySelector("#addTodo input:nth-child(1)").value, document.querySelector("#addTodo input:nth-child(2)").value.toString());
-
 		if(temp.text!=="" && temp.date!==""){ 
 			//push it to array
 			studyTodos.push(temp);
-			$.post('addtodos', temp);
+			temp.op = "add";
+			$.ajax({
+				type:"POST",
+				url:'addRemoveTodo.php',
+				dataType:"json",
+				data:temp,
+				complete: function(xhr) {
+					if(xhr.responseText != "Success") {
+						alert("Something went wrong with the last todo. It is not saved :-(");
+					}
+				}
+			});
 			printTodos(filteringMode);			
 		}
 	}

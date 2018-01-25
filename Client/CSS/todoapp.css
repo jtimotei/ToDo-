@@ -27,7 +27,6 @@ header {
 	color:white;
 	height: 5%;
 	width:100%;
-	background-color:rgb(0, 51, 102);
 	border-bottom: 3px solid #b7b7b7;
 	z-index: 6;
 	position:fixed;
@@ -238,7 +237,7 @@ div#left {
 div#left ul{
 	width:100%;
 	position:relative;
-	top:20%;
+	top:10%;
 	font-size: 1.3em;
 	margin:auto;
 	overflow: hidden;
@@ -246,10 +245,10 @@ div#left ul{
 
 div#left ul li{
 	list-style-type: none;
-	margin-bottom:30px;
+	margin-bottom:20px;
 	display: inline-block;
 	width: 100%;
-	height: 74px;
+	height: 100px;
 	font-family: "Ubuntu";
 	border-left: 0px solid rgba(0,0,0,0);
 	transition:0.3s;
@@ -293,7 +292,7 @@ div#left div#copyright {
 .iconsLeft{
 	float:left;
 	width: 20%;
-	max-height: 100%;
+	max-height: 85%;
 	object-fit: contain;
 	position:relative;
 	top:50%;
@@ -362,32 +361,56 @@ div#left div#copyright {
 	cursor:pointer;
 }
 
-#bluec:hover {
+li#bluec:hover {
 	border-left: 10px solid rgb(0, 51, 102);
 	color:rgb(0, 51, 102);
 }
 
-#redc:hover {
+li#redc:hover {
 	border-left: 10px solid rgb(153, 0, 0);
 	color:rgb(153, 0, 0);
 }
 
-#orangec:hover {
+li#orangec:hover {
 	border-left: 10px solid rgb(255, 102, 0);
 	color:rgb(255, 102, 0);
 }
 
-#yellowc:hover {
+li#yellowc:hover {
 	border-left: 10px solid rgb(230, 184, 0);
 	color:rgb(230, 184, 0);
 }
 
-#greenc:hover {
+li#greenc:hover {
 	border-left: 10px solid rgb(36, 143, 36);
 	color:rgb(36, 143, 36);
 }
 
-#purplec:hover {
+li#purplec:hover {
 	border-left: 10px solid rgb(71, 0, 179);
 	color:rgb(71, 0, 179);
+}
+
+header#bluec {
+	background-color:rgb(0, 51, 102);
+}
+
+header#redc {
+	background-color:rgb(153, 0, 0);
+}
+
+header#orangec {
+	background-color:rgb(255, 102, 0);
+}
+
+header#yellowc {
+	background-color:rgb(230, 184, 0);
+}
+
+header#greenc {
+	background-color:rgb(36, 143, 36);
+}
+
+header#purplec {
+	background-color:rgb(71, 0, 179);
 }

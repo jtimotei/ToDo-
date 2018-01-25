@@ -56,8 +56,14 @@ function iconRemoveHover(a){
 
 
 $("#colors table td").on("click", function() {
-	$("header").css("background-color", $(this).css("background-color"));
-	
 	$("div#left ul li").attr("id", $(this).attr("data-color"));
+	$("header").attr("id", $(this).attr("data-color"));
+
+	$.ajax({
+		type: "POST",
+		url:"color.php", 
+		data:{color: $(this).attr("data-color")},
+		dataType:"json"
+	})
 });
 

@@ -8,10 +8,9 @@ function test_input($data) {
   return $data;
 }
 
-function login() {
+function retrieveTodos() {
 	require "credentials.php";
-	$user = test_input($_POST["username"]);
-	$pass = test_input($_POST["password"]);
+	$user = test_input($_SESSION["username"]);
 
 	// Create connection
 	$conn = new mysqli($mysql["servername"], $mysql["username"], $mysql["password"], $mysql["dbname"]);
@@ -20,26 +19,20 @@ function login() {
 	    die("Connection with the database failed :-(");
 	} 
 
-	$sql = "select * from users where username='" . $user . "';";
+	$sql = "select * from todos where username='" . $user . "';";
 
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
-		$row = $result->fetch_assoc();
-		if($pass === $row["password"]) {
-	    	$_SESSION["username"] = $user;
-	    	$_SESSION["name"] = $row["name"];
-	    	$_SESSION["color"] = $row["color"];
-			echo "Success";
+		while($r = $result->fetch_assoc()) {
+			$rows[] = $r; 
 		}
-		else {
-			echo "Wrong username or password";
-		}
+		echo json_encode($rows);
 	} else {
-	    echo "Wrong username or password";
+	    echo "No to-dos";
 	}
 
 	$conn->close();
 }
 
-login();
+retrieveTodos();
 ?>

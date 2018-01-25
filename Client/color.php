@@ -10,8 +10,13 @@ function test_input($data) {
 
 function login() {
 	require "credentials.php";
-	$user = test_input($_POST["username"]);
-	$pass = test_input($_POST["password"]);
+
+	if(!isset($_SESSION["username"])) {
+		echo "Access denied";
+		die();
+	}
+
+	$color = test_input($_POST["color"]);
 
 	// Create connection
 	$conn = new mysqli($mysql["servername"], $mysql["username"], $mysql["password"], $mysql["dbname"]);
@@ -20,22 +25,14 @@ function login() {
 	    die("Connection with the database failed :-(");
 	} 
 
-	$sql = "select * from users where username='" . $user . "';";
+	$sql = "update users set color='" . $color . "' where username='" . $_SESSION["username"] . "';";
 
 	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		$row = $result->fetch_assoc();
-		if($pass === $row["password"]) {
-	    	$_SESSION["username"] = $user;
-	    	$_SESSION["name"] = $row["name"];
-	    	$_SESSION["color"] = $row["color"];
-			echo "Success";
-		}
-		else {
-			echo "Wrong username or password";
-		}
+	if ($result) {
+		$_SESSION["color"] = $color;
+		echo "Success";
 	} else {
-	    echo "Wrong username or password";
+	    echo "Something went wrong";
 	}
 
 	$conn->close();

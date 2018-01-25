@@ -18,7 +18,7 @@ if(!isset($_SESSION["username"])) {
 
 </script>
 <body>
-<header>
+<header id=<?php echo $_SESSION["color"]; ?>>
 	<a href="index.html"> <img id="logo" src="Resources/logo.png"> </a>
 	<div><img id="MenuIcon" src="Resources/MenuIcon.png"></div>
 
@@ -47,8 +47,7 @@ if(!isset($_SESSION["username"])) {
 		<ul id="categories">
 			<li id=<?php echo $_SESSION["color"]; ?> class="active"> <img class="iconsLeft"  src="Resources/inbox.png"> <div> <p> Inbox </p> </div> </li>
 			<li id=<?php echo $_SESSION["color"]; ?>> <img class="iconsLeft"  src="Resources/today.png"> <div> <p> Today </p> </div> </li>
-			<li id=<?php echo $_SESSION["color"]; ?>> <img class="iconsLeft" src="Resources/calendar.png"> <div> <p> Next 7 days </p> </div> </li>
-			
+			<li id=<?php echo $_SESSION["color"]; ?>> <img class="iconsLeft" src="Resources/calendar.png"> <div> <p> Next 7 days </p> </div> </li>			
 		</ul>
 		<div id="copyright">&#169; 2018 jtimotei</div>
 	</div>

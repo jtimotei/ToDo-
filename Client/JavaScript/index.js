@@ -8,7 +8,7 @@ function main(){
 	}, 1000);
 
 	$("#enroll").on("click", function() {
-		location.href = "sign_up.html";
+		location.href = "signUp.php";
 	})
 
 	$("#showLogIn").on("click", function() {
@@ -19,23 +19,36 @@ function main(){
 		setPosition();
 	});
 
-	$("div#login").on("click", function() {
+	function try_login() {
 		var loginInfo = {
-			username : $("input[name='username']").val(),
-			password : $("input[name='password']").val()
+			username : $("#logInWindow input[name='username']").val(),
+			password : $("#logInWindow input[name='password']").val()
 		}
 		$.ajax({
 			type: "POST",
-			url:"/ToDo-/Client/login.php", 
+			url:"login.php", 
 			data:loginInfo,
 			dataType:"json",
 			complete : function(xhr) {
 				if(xhr.responseText == "Success") {
 					window.location.href = "todoapp.php";
 				}
+				else {
+					$("div#errorMessage").text("Wrong username or password");
+				}
 			}
 
 		})
+	}
+
+	$("div#login").on("click", function() {
+		try_login();
+	})
+
+	$("input").on("keypress", function(event) {
+		if(event.keyCode == 13) {
+			try_login();
+		}
 	})
 }
 

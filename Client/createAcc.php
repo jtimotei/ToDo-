@@ -8,10 +8,11 @@ function test_input($data) {
   return $data;
 }
 
-function login() {
+function signUp() {
 	require "credentials.php";
 	$user = test_input($_POST["username"]);
 	$pass = test_input($_POST["password"]);
+	$name = test_input($_POST["name"]);
 
 	// Create connection
 	$conn = new mysqli($mysql["servername"], $mysql["username"], $mysql["password"], $mysql["dbname"]);
@@ -20,26 +21,22 @@ function login() {
 	    die("Connection with the database failed :-(");
 	} 
 
-	$sql = "select * from users where username='" . $user . "';";
+	$sql1 = "select * from users where username='" . $user . "';";
+	$result = $conn->query($sql1);
+	if(!$result || $result->num_rows>0) {
+		die("Username already taken.");
+	}
 
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		$row = $result->fetch_assoc();
-		if($pass === $row["password"]) {
-	    	$_SESSION["username"] = $user;
-	    	$_SESSION["name"] = $row["name"];
-	    	$_SESSION["color"] = $row["color"];
-			echo "Success";
-		}
-		else {
-			echo "Wrong username or password";
-		}
+	$sql2 = "insert into users (username, password, name, color) values ('" . $user . "', '" . $pass . "', '" . $name . "', 'bluec');";
+	$result = $conn->query($sql2);
+	if ($result) {
+		echo "Success";
 	} else {
-	    echo "Wrong username or password";
+	    echo "Something went wrong.";
 	}
 
 	$conn->close();
 }
 
-login();
+signUp();
 ?>

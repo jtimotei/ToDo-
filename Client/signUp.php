@@ -9,14 +9,12 @@ if(isset($_SESSION["username"])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ToDo++</title>
+	<title>Sign Up</title>
 	<link rel="stylesheet" type="text/css" href="CSS/index.css">
+	<link rel="stylesheet" type="text/css" href="CSS/signUp.css">
 	<link href="https://fonts.googleapis.com/css?family=Passion+One|Fredoka+One|Ubuntu" rel="stylesheet">
 	<link rel="icon" href="Resources/favicon.ico" type="image/x-icon" />
 </head>
-<script> 
-
-</script>
 <body>
 <header>
 	 <img id="logo" src="Resources/logo.png">
@@ -32,15 +30,23 @@ if(isset($_SESSION["username"])) {
 		<div id="login">Log in</div>
 	</div>
 	<div id="content">
-		<p><span id="AnimT">T</span><span id="AnimO1">o</span><span id="AnimD">D</span><span id="AnimO2">o</span><span id="AnimPlus1">+</span><span id="AnimPlus2">+</span><span class="cursor">&#x25AE</span></p>
-		<p id="moto">Keep your stuff organized even as a computer scientist.</p>
-		<div id="enroll">Join now!</div>
+	<h2>Create an account </h2><br>
+	<table>
+		<tr> <td>Username: </td><td><input type="text" name="username" placeholder="doe.john" required> </td></tr> 
+		<tr> <td>Name: </td><td><input type="text" name="name" placeholder="John Doe" required></td></tr>
+		<tr> <td>Password: </td><td><input type="password" name="password" placeholder="********" required></td></tr>
+	</table>
+	<div id="errorMessage2"></div>
+	<div id="signUp">Sign up</dir>
 	</div>
 </main>
+
+
 <footer>
 	&#169; 2018 jtimotei
 </footer>
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>	
-<script src="JavaScript/index.js"></script>
+<script type="text/javascript" src="JavaScript/index.js"></script>
+<script type="text/javascript" src="JavaScript/signUp.js"></script>
 </body>
 </html>
