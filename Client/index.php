@@ -19,7 +19,7 @@ if(isset($_SESSION["username"])) {
 </script>
 <body>
 <header>
-	 <img id="logo" src="Resources/logo.png">
+	<img id="logo" src="Resources/logo.png">
 	<div><a href="faq.html"> FAQ </a></div>
 	<div id="showLogIn"><a> Log in </a></div>
 </header>
