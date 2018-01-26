@@ -19,7 +19,7 @@ if(!isset($_SESSION["username"])) {
 </script>
 <body>
 <header id=<?php echo $_SESSION["color"]; ?>>
-	<a href="index.html"> <img id="logo" src="Resources/logo.png"> </a>
+	<a href="index.php"> <img id="logo" src="Resources/logo.png"> </a>
 	<div><img id="MenuIcon" src="Resources/MenuIcon.png"></div>
 
 </header>
