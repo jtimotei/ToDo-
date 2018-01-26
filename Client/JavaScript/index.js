@@ -45,7 +45,7 @@ function main(){
 		try_login();
 	})
 
-	$("input").on("keypress", function(event) {
+	$("#logInWindow input").on("keypress", function(event) {
 		if(event.keyCode == 13) {
 			try_login();
 		}
